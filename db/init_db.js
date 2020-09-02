@@ -1,8 +1,9 @@
 // code to build and initialize DB goes here
 const {
-  client
-  // other db methods 
-} = require('./index');
+   client,
+   createLink,
+   createTag
+} = require("./index");
 
 async function createTables() {
   try {
@@ -77,7 +78,53 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    // create useful starting data
+    // create meaningful seed data
+    console.log("Creating initial links...");
+
+    await createLink({
+      link: "https://www.google.com/",
+      clickCount: 5,
+      comment: "this is google.com",
+      date: "1000-01-01",
+    });
+
+    await createLink({
+      link: "https://developer.mozilla.org/en-US/",
+      clickCount: 10,
+      comment: "This is MDN",
+      date: "1002-02-02",
+    });
+
+    await createLink({
+      link: "https://stackoverflow.com/",
+      clickCount: 4,
+      comment: "This is stackoverflow",
+      date: "1003-03-03",
+    });
+    
+    console.log("Finished creating initial links...");
+
+    console.log("Creating initial tags...");
+
+    // await createTag({
+    //   tag: "search"
+    // })
+
+    console.log("Finished creating initial tags...")
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function testDB() {
+  try {
+    console.log("Starting to test DB...")
+
+    console.log("Running populateInitialData..");
+    const initialData = await populateInitialData();
+    console.log("Finished populating initial data...");
+
+    console.log("Finished testing DB...")
   } catch (error) {
     throw error;
   }
