@@ -2,6 +2,9 @@
 const {
    client,
    createLink,
+   getAllLinks,
+   getLinkById,
+   getLinkByClickCount,
    createTag
 } = require("./index");
 
@@ -20,7 +23,7 @@ async function createTables() {
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        tags TEXT
+        name varchar(255) UNIQUE NOT NULL
       );
 
       CREATE TABLE link_tags (
@@ -114,6 +117,18 @@ async function testDB() {
     console.log("Running populateInitialData..");
     const initialData = await populateInitialData();
     console.log("Finished populating initial data...");
+
+    // console.log("Running getAllLinks...");
+    // const allLinks = await getAllLinks();
+    // console.log("Result: ", allLinks);
+
+    // console.log("Running getLinkById...");
+    // const linkById = await getLinkById(1);
+    // console.log("Result: ", linkById);
+
+    console.log("Running getLinkByClickCount...");
+    const linkByClickCount = await getLinkByClickCount(10);
+    console.log("Result: ", linkByClickCount);
 
     console.log("Finished testing DB...")
   } catch (error) {
