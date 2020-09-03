@@ -1,5 +1,12 @@
 // code to build and initialize DB goes here
-const { client, createLink } = require("./index");
+const {
+   client,
+   createLink,
+   getAllLinks,
+   getLinkById,
+   getLinkByClickCount,
+   createTag
+} = require("./index");
 
 async function createTables() {
   try {
@@ -16,7 +23,7 @@ async function createTables() {
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        tags TEXT
+        name varchar(255) UNIQUE NOT NULL
       );
 
       CREATE TABLE link_tags (
@@ -66,12 +73,38 @@ async function buildTables() {
 async function populateInitialData() {
   try {
     // create meaningful seed data
+    console.log("Creating initial links...");
+
     await createLink({
       link: "https://www.google.com/",
       clickCount: 5,
       comment: "this is google.com",
       date: "1000-01-01",
     });
+
+    await createLink({
+      link: "https://developer.mozilla.org/en-US/",
+      clickCount: 10,
+      comment: "This is MDN",
+      date: "1002-02-02",
+    });
+
+    await createLink({
+      link: "https://stackoverflow.com/",
+      clickCount: 4,
+      comment: "This is stackoverflow",
+      date: "1003-03-03",
+    });
+    
+    console.log("Finished creating initial links...");
+
+    console.log("Creating initial tags...");
+
+    // await createTag({
+    //   tag: "search"
+    // })
+
+    console.log("Finished creating initial tags...")
   } catch (error) {
     throw error;
   }
@@ -79,8 +112,25 @@ async function populateInitialData() {
 
 async function testDB() {
   try {
-    console.log("creating initial data..");
-    await populateInitialData();
+    console.log("Starting to test DB...")
+
+    console.log("Running populateInitialData..");
+    const initialData = await populateInitialData();
+    console.log("Finished populating initial data...");
+
+    // console.log("Running getAllLinks...");
+    // const allLinks = await getAllLinks();
+    // console.log("Result: ", allLinks);
+
+    // console.log("Running getLinkById...");
+    // const linkById = await getLinkById(1);
+    // console.log("Result: ", linkById);
+
+    console.log("Running getLinkByClickCount...");
+    const linkByClickCount = await getLinkByClickCount(10);
+    console.log("Result: ", linkByClickCount);
+
+    console.log("Finished testing DB...")
   } catch (error) {
     console.error("Error testing database!");
     throw error;
