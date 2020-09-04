@@ -1,11 +1,12 @@
 // code to build and initialize DB goes here
 const {
-   client,
-   createLink,
-   getAllLinks,
-   getLinkById,
-   getLinkByClickCount,
-   createTag
+  client,
+  createLink,
+  getAllLinks,
+  getLinkById,
+  getLinkByClickCount,
+  createTag,
+  getAllTags,
 } = require("./index");
 
 async function createTables() {
@@ -80,6 +81,7 @@ async function populateInitialData() {
       clickCount: 5,
       comment: "this is google.com",
       date: "1000-01-01",
+      tags: ["googlemaps", "googledrive", "googlefinance"],
     });
 
     await createLink({
@@ -87,6 +89,7 @@ async function populateInitialData() {
       clickCount: 10,
       comment: "This is MDN",
       date: "1002-02-02",
+      tags: ["developer", "MDN", "Mozilla"],
     });
 
     await createLink({
@@ -94,17 +97,10 @@ async function populateInitialData() {
       clickCount: 4,
       comment: "This is stackoverflow",
       date: "1003-03-03",
+      tags: ["stackoverflow", "fullstack"],
     });
-    
+
     console.log("Finished creating initial links...");
-
-    console.log("Creating initial tags...");
-
-    // await createTag({
-    //   tag: "search"
-    // })
-
-    console.log("Finished creating initial tags...")
   } catch (error) {
     throw error;
   }
@@ -112,7 +108,7 @@ async function populateInitialData() {
 
 async function testDB() {
   try {
-    console.log("Starting to test DB...")
+    console.log("Starting to test DB...");
 
     console.log("Running populateInitialData..");
     const initialData = await populateInitialData();
@@ -126,11 +122,15 @@ async function testDB() {
     // const linkById = await getLinkById(1);
     // console.log("Result: ", linkById);
 
-    console.log("Running getLinkByClickCount...");
-    const linkByClickCount = await getLinkByClickCount(10);
-    console.log("Result: ", linkByClickCount);
+    // console.log("Running getLinkByClickCount...");
+    // const linkByClickCount = await getLinkByClickCount(10);
+    // console.log("Result: ", linkByClickCount);
 
-    console.log("Finished testing DB...")
+    console.log("Running getAllTags");
+    const allTags = await getAllTags();
+    console.log("allTags: ", allTags);
+
+    console.log("Finished testing DB...");
   } catch (error) {
     console.error("Error testing database!");
     throw error;
