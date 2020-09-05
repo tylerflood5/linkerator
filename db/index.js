@@ -164,6 +164,24 @@ async function getAllTags() {
   }
 }
 
+async function getLinksByTagName(tagName) {
+  try {
+    const { rows: linkIds } = await client.query(`
+      SELECT links.id
+      FROM links
+      JOIN link_tags ON links.id=link_tags."linkId"
+      JOIN tags ON tags.id=link_tags."tagId"
+      WHERE tags.name=$1
+    `, [tagName]);
+
+    return await Promise.all(linkIds.map(
+      link => getLinkById(link.id)
+    ));
+  } catch (error) {
+    throw error;
+  }
+}
+
 ///// Todo Items /////
 // do we need anything querying link_tags table?
 
@@ -176,4 +194,5 @@ module.exports = {
   addTagsToLink,
   createLinkTag,
   getAllTags,
+  getLinksByTagName
 };

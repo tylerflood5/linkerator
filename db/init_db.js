@@ -7,6 +7,7 @@ const {
   getLinkByClickCount,
   createTag,
   getAllTags,
+  getLinksByTagName
 } = require("./index");
 
 async function createTables() {
@@ -129,6 +130,10 @@ async function testDB() {
     console.log("Running getAllTags");
     const allTags = await getAllTags();
     console.log("allTags: ", allTags);
+
+    console.log("Running getLinksByTagName...");
+    const linksByTagName = await getLinksByTagName('MDN');
+    console.log("Result:", linksByTagName);
 
     console.log("Finished testing DB...");
   } catch (error) {
