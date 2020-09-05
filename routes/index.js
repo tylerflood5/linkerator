@@ -7,7 +7,8 @@ const {
   getLinkByClickCount,
   addTagstoLink,
   createLinkTag,
-  getAllTags
+  getAllTags,
+  getLinksByTagName
 } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
@@ -39,10 +40,12 @@ apiRouter.get("/tags", async (req, res, next) => {
 });
 
 apiRouter.get("/:tagName/links", async (req, res, next) => {
-  const { tagName } = req.params;
-
   try {
-    
+    const { tagName } = req.params;
+
+    const linksByTagName = await getLinksByTagName(tagName);
+
+    res.send({linksByTagName});
   } catch ({name, message}) {
     next({name, message})
   }
