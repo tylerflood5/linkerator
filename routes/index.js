@@ -49,6 +49,54 @@ apiRouter.get("/:tagName/links", async (req, res, next) => {
   } catch ({name, message}) {
     next({name, message})
   }
-})
+});
+
+// almost done with post function but need debug help
+apiRouter.post("/", async (req, res, next) => {
+  const { link, clickCount, comment, date, tags = "" } = req.body;
+
+  const tagArr = tags.trim().split(/\s+/)
+  const linkData = {};
+
+  if (tagArr.length) {
+    linkData.tags = tagArr;
+  }
+
+  try {
+    linkData.link = link;
+    linkData.clickCount = clickCount;
+    linkData.comment = comment;
+    linkData.date = date;
+    // console.log(linkData, 'link data flag')
+
+    const createdLink = await createLink(linkData);
+
+    if (createdLink) {
+      console.log(createLink)
+      res.send(createLink);
+    } else {
+      console.log('else error flag')
+      next({
+        name: "LinkCreationError",
+        message: "There was an error creating the link. Please try again."
+      })
+    }
+  } catch ({name, message}) {
+    next({name, message});
+  }
+});
+
+// apiRouter.delete("/:linkId", async (req, res, next) => {
+//   try {
+//     const link = await getLinkById(req.params.linkId);
+
+//     if (link) {
+
+//     }
+    
+//   } catch ({name, message}) {
+//     next({name, message});
+//   }
+// });
 
 module.exports = apiRouter;

@@ -81,6 +81,49 @@ async function getLinkByClickCount(clickCount) {
   }
 }
 
+// async function updateLink(linkId, fields = {}) {
+//   const { tags } = fields;
+//   delete fields.tags;
+
+//   const setString = Object.keys(fields).map(
+//     (key, index) => `"${ key }"=$${ index + 1 }`
+//   ).join(', ');
+
+//   try {
+//     if (setString.length > 0) {
+//       await client.query(`
+//         UPDATE links
+//         SET ${ setString }
+//         WHERE id=${ linkId }
+//         RETURNING *
+//       `, Object.values(fields));
+//     }
+    
+//     if (tags === undefined) {
+//       return await getLinkById(linkId);
+//     }
+
+//     const tagList = await createTags(tags);
+//     const tagListIdString = tagList.map(
+//       tag => `${ tag.id }`
+//     ).join(', ');
+
+//     await client.query(`
+//       DELET FROM link_tags
+//       WHERE "tagId"
+//       NOT IN (${ tagListIdString })
+//       AND "linkId"=$1;
+//     `, [linkId]);
+
+//     await addTagsToLink(linkId, tagList);
+
+//     const test = await getLinkById(linkId);
+//     console.log(test, 'flag test flag')
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
 // create tags
 async function createTags(tagList) {
   if (tagList.length === 0) {
@@ -191,6 +234,7 @@ module.exports = {
   getAllLinks,
   getLinkById,
   getLinkByClickCount,
+  // updateLink,
   addTagsToLink,
   createLinkTag,
   getAllTags,

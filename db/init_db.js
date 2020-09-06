@@ -5,6 +5,7 @@ const {
   getAllLinks,
   getLinkById,
   getLinkByClickCount,
+  // updateLink,
   createTag,
   getAllTags,
   getLinksByTagName
@@ -127,13 +128,20 @@ async function testDB() {
     // const linkByClickCount = await getLinkByClickCount(10);
     // console.log("Result: ", linkByClickCount);
 
-    console.log("Running getAllTags");
-    const allTags = await getAllTags();
-    console.log("allTags: ", allTags);
+    // console.log("Running getAllTags");
+    // const allTags = await getAllTags();
+    // console.log("allTags: ", allTags);
 
-    console.log("Running getLinksByTagName...");
-    const linksByTagName = await getLinksByTagName('MDN');
-    console.log("Result:", linksByTagName);
+    // console.log("Running getLinksByTagName...");
+    // const linksByTagName = await getLinksByTagName('MDN');
+    // console.log("Result:", linksByTagName);
+
+    // console.log("Running updateLink...");
+    // const updatedLink = await updateLink(4, {
+    //   link: "https://www.youtube.com/",
+    //   clickCount: "20",
+    // });
+    // console.log("Result:", updatedLink);
 
     console.log("Finished testing DB...");
   } catch (error) {
