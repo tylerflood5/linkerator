@@ -1,4 +1,4 @@
-const apiRouter = require('express').Router();
+const apiRouter = require("express").Router();
 
 const {
   createLink,
@@ -8,12 +8,14 @@ const {
   addTagstoLink,
   createLinkTag,
   getAllTags,
-  getLinksByTagName
+  getLinksByTagName,
+  destroyLink,
+  updateLink,
 } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: "API is under construction!"
+    message: "API is under construction!",
   });
 });
 
@@ -22,20 +24,17 @@ apiRouter.get("/links", async (req, res, next) => {
     const allLinks = await getAllLinks();
 
     res.send(allLinks);
-
-  } catch ({name, message}) {
-    next({name, message});
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
 apiRouter.get("/tags", async (req, res, next) => {
   try {
     const allTags = await getAllTags();
-
     res.send(allTags);
-
-  } catch ({name, message}) {
-    next({name, message});
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
@@ -45,9 +44,9 @@ apiRouter.get("/:tagName/links", async (req, res, next) => {
 
     const linksByTagName = await getLinksByTagName(tagName);
 
-    res.send({linksByTagName});
-  } catch ({name, message}) {
-    next({name, message})
+    res.send({ linksByTagName });
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
@@ -55,7 +54,7 @@ apiRouter.get("/:tagName/links", async (req, res, next) => {
 apiRouter.post("/", async (req, res, next) => {
   const { link, clickCount, comment, date, tags = "" } = req.body;
 
-  const tagArr = tags.trim().split(/\s+/)
+  const tagArr = tags.trim().split(/\s+/);
   const linkData = {};
 
   if (tagArr.length) {
@@ -72,31 +71,55 @@ apiRouter.post("/", async (req, res, next) => {
     const createdLink = await createLink(linkData);
 
     if (createdLink) {
-      console.log(createLink)
+      console.log(createLink);
       res.send(createLink);
     } else {
-      console.log('else error flag')
+      console.log("else error flag");
       next({
         name: "LinkCreationError",
-        message: "There was an error creating the link. Please try again."
-      })
+        message: "There was an error creating the link. Please try again.",
+      });
     }
-  } catch ({name, message}) {
-    next({name, message});
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
-// apiRouter.delete("/:linkId", async (req, res, next) => {
-//   try {
-//     const link = await getLinkById(req.params.linkId);
+apiRouter.delete("/:linkId", async (req, res, next) => {
+  try {
+    const link = await getLinkById(req.params.linkId);
+    await destroyLink(link.id);
+    res.send({ message: "link successfully deleted" });
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
-//     if (link) {
+apiRouter.patch("/:linkId", async (req, res, next) => {
+  const { linkId } = req.params;
+  const { link, clickCount, comment } = req.body;
 
-//     }
-    
-//   } catch ({name, message}) {
-//     next({name, message});
-//   }
-// });
+  const updateFields = {};
+
+  if (link) {
+    updateFields.link = link;
+  }
+  if (clickCount) {
+    updateFields.clickCount = clickCount;
+  }
+  if (comment) {
+    updateFields.comment = comment;
+  }
+
+  try {
+    const updatedLink = await updateLink(linkId, updateFields);
+    res.send({ routine: updatedLink, message: "link successfully updated" });
+  } catch (error) {
+    next({
+      name: "not able to update link",
+      message: "there was an error trying to update your link.",
+    });
+  }
+});
 
 module.exports = apiRouter;

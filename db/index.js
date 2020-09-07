@@ -81,48 +81,83 @@ async function getLinkByClickCount(clickCount) {
   }
 }
 
-// async function updateLink(linkId, fields = {}) {
-//   const { tags } = fields;
-//   delete fields.tags;
+async function destroyLink(id) {
+  try {
+    await client.query(
+      `
+      DELETE
+      FROM link_tags
+      WHERE "linkId" = $1;
+      `,
+      [id]
+    );
 
-//   const setString = Object.keys(fields).map(
-//     (key, index) => `"${ key }"=$${ index + 1 }`
-//   ).join(', ');
+    const {
+      rows: [link],
+    } = await client.query(
+      `
+      DELETE
+      FROM links
+      WHERE id = $1;
+      `,
+      [id]
+    );
+    return link;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-//   try {
-//     if (setString.length > 0) {
-//       await client.query(`
-//         UPDATE links
-//         SET ${ setString }
-//         WHERE id=${ linkId }
-//         RETURNING *
-//       `, Object.values(fields));
-//     }
-    
-//     if (tags === undefined) {
-//       return await getLinkById(linkId);
-//     }
+async function updateLink(linkId, fields = {}) {
+  // const { tags } = fields;
+  // delete fields.tags;
 
-//     const tagList = await createTags(tags);
-//     const tagListIdString = tagList.map(
-//       tag => `${ tag.id }`
-//     ).join(', ');
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
 
-//     await client.query(`
-//       DELET FROM link_tags
-//       WHERE "tagId"
-//       NOT IN (${ tagListIdString })
-//       AND "linkId"=$1;
-//     `, [linkId]);
+  try {
+    if (setString.length > 0) {
+      const {
+        rows: [link],
+      } = await client.query(
+        `
+        UPDATE links
+        SET ${setString}
+        WHERE id=${linkId}
+        RETURNING *
+      `,
+        Object.values(fields)
+      );
+    } else {
+      console.log("unable to setString");
+      return;
+    }
 
-//     await addTagsToLink(linkId, tagList);
+    // if (tags === undefined) {
+    //   return await getLinkById(linkId);
+    // }
 
-//     const test = await getLinkById(linkId);
-//     console.log(test, 'flag test flag')
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+    // const tagList = await createTags(tags);
+    // const tagListIdString = tagList.map(
+    //   tag => `${ tag.id }`
+    // ).join(', ');
+
+    // await client.query(`
+    //   DELETE FROM link_tags
+    //   WHERE "tagId"
+    //   NOT IN (${ tagListIdString })
+    //   AND "linkId"=$1;
+    // `, [linkId]);
+
+    // await addTagsToLink(linkId, tagList);
+
+    // const test = await getLinkById(linkId);
+    // console.log(test, 'flag test flag')
+  } catch (error) {
+    throw error;
+  }
+}
 
 // create tags
 async function createTags(tagList) {
@@ -209,17 +244,18 @@ async function getAllTags() {
 
 async function getLinksByTagName(tagName) {
   try {
-    const { rows: linkIds } = await client.query(`
+    const { rows: linkIds } = await client.query(
+      `
       SELECT links.id
       FROM links
       JOIN link_tags ON links.id=link_tags."linkId"
       JOIN tags ON tags.id=link_tags."tagId"
       WHERE tags.name=$1
-    `, [tagName]);
+    `,
+      [tagName]
+    );
 
-    return await Promise.all(linkIds.map(
-      link => getLinkById(link.id)
-    ));
+    return await Promise.all(linkIds.map((link) => getLinkById(link.id)));
   } catch (error) {
     throw error;
   }
@@ -234,9 +270,10 @@ module.exports = {
   getAllLinks,
   getLinkById,
   getLinkByClickCount,
-  // updateLink,
+  updateLink,
   addTagsToLink,
   createLinkTag,
   getAllTags,
-  getLinksByTagName
+  getLinksByTagName,
+  destroyLink,
 };

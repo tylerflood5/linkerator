@@ -8,7 +8,7 @@ const {
   // updateLink,
   createTag,
   getAllTags,
-  getLinksByTagName
+  getLinksByTagName,
 } = require("./index");
 
 async function createTables() {
@@ -63,7 +63,6 @@ async function dropTables() {
 async function buildTables() {
   try {
     client.connect();
-
     // drop tables in correct order
     await dropTables();
     // build tables in correct order
