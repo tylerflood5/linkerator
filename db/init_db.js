@@ -115,9 +115,9 @@ async function testDB() {
     const initialData = await populateInitialData();
     console.log("Finished populating initial data...");
 
-    // console.log("Running getAllLinks...");
-    // const allLinks = await getAllLinks();
-    // console.log("Result: ", allLinks);
+    console.log("Running getAllLinks...");
+    const allLinks = await getAllLinks();
+    console.log("Result: ", allLinks);
 
     // console.log("Running getLinkById...");
     // const linkById = await getLinkById(1);
