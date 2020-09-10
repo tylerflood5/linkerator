@@ -30,13 +30,28 @@ async function createLink({ link, clickCount, comment, date, tags = [] }) {
   }
 }
 
-// getAllLinks :)
+// getAllLinksAndTags
+async function getAllLinksAndTags() {
+  try {
+    const { rows } = await client.query(`
+      SELECT links.id, links.link, links."clickCount", links.comment, links.date, STRING_AGG(distinct name, ' , ') AS name
+      FROM links
+      JOIN link_tags ON links.id=link_tags."linkId"
+      JOIN tags ON tags.id=link_tags."tagId"
+      GROUP BY links.id
+    `);
+    return rows;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// getAllLinks
 async function getAllLinks() {
   try {
     const { rows } = await client.query(`
       SELECT * FROM links;
     `);
-
     return rows;
   } catch (error) {
     throw error;
@@ -276,4 +291,5 @@ module.exports = {
   getAllTags,
   getLinksByTagName,
   destroyLink,
+  getAllLinksAndTags,
 };

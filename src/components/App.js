@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { 
-  getSomething,
-  getLinks
-   } from "../api";
+import { getSomething, getLinks } from "../api";
 
-import {
-  SearchBar,
-  MainContent,
-  AddLink
-} from "../components";  
+import { SearchBar, MainContent, AddLink } from "../components";
 
 // testing 1, 2, 3
 
@@ -26,15 +19,16 @@ const App = () => {
       });
   });
 
-
   return (
     <div className="App">
       <h1>Linkerator!!</h1>
-      <form></form>
       <h2>{message}</h2>
-      <h3>
+      <div>
+        <SearchBar />
+      </div>
+      <div>
         <MainContent />
-      </h3>
+      </div>
     </div>
   );
 };

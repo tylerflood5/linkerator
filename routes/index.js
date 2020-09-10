@@ -3,6 +3,7 @@ const apiRouter = require("express").Router();
 const {
   createLink,
   getAllLinks,
+  getAllLinksAndTags,
   getLinkById,
   getLinkByClickCount,
   addTagstoLink,
@@ -21,7 +22,7 @@ apiRouter.get("/", (req, res, next) => {
 
 apiRouter.get("/links", async (req, res, next) => {
   try {
-    const allLinks = await getAllLinks();
+    const allLinks = await getAllLinksAndTags();
 
     res.send(allLinks);
   } catch ({ name, message }) {
@@ -71,8 +72,8 @@ apiRouter.post("/", async (req, res, next) => {
     const createdLink = await createLink(linkData);
 
     if (createdLink) {
-      console.log(createLink);
-      res.send(createLink);
+      console.log(createdLink);
+      res.send(createdLink);
     } else {
       console.log("else error flag");
       next({
