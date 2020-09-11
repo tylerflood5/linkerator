@@ -23,7 +23,6 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.get("/links", async (req, res, next) => {
   try {
     const allLinks = await getAllLinksAndTags();
-
     res.send(allLinks);
   } catch ({ name, message }) {
     next({ name, message });
@@ -51,7 +50,6 @@ apiRouter.get("/:tagName/links", async (req, res, next) => {
   }
 });
 
-// almost done with post function but need debug help
 apiRouter.post("/", async (req, res, next) => {
   const { link, clickCount, comment, date, tags = "" } = req.body;
 
