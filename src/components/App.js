@@ -11,6 +11,7 @@ import { SearchBar, MainContent, AddLink } from "../components";
 const App = () => {
   const [message, setMessage] = useState("");
   const [links, setLinks] = useState([]);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     getSomething()
@@ -20,19 +21,15 @@ const App = () => {
       .catch((error) => {
         setMessage(error.message);
       });
-  });
+  }, []);
 
   return (
     <div className="App">
       <h1>Linkerator!!</h1>
       <h2>{message}</h2>
       <div>
-        <SearchBar />
+        <SearchBar query={query} setQuery={setQuery}/>
       </div>
-      <div>
-        <MainContent  />
-      </div>
-
       <MainContent links={links} setLinks={setLinks} />
       <AddLink links={links} setLinks={setLinks} />
     </div>
