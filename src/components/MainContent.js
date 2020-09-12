@@ -4,9 +4,12 @@ import {
   getLinks
  } from "../api";
 
-const MainContent = () => {
-  const [links, setLinks] = useState([]);
-  // const [clickCount, setClickCount] = useState(0);
+
+console.log("testing testing testing");
+
+
+
+
 const MainContent = ({ links, setLinks }) => {
   // const [links, setLinks] = useState([]);
 
