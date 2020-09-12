@@ -3,24 +3,24 @@ import React, { useState, useEffect } from "react";
 import { getLinks } from "../api";
 
 
-const SearchBar = () => {
+const SearchBar = ({query, setQuery}) => {
   // bunch of stuff here
-  const [links, setLinks] = useState([]);
+  // const [links, setLinks] = useState([]);
+  console.log(query)
 
-  useEffect(() => {
-    getLinks()
-      .then((response) => {
-        setLinks(response);
-      })
-      .catch((error) => {
-        setLinks(error.message);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getLinks()
+  //     .then((response) => {
+  //       setLinks(response);
+  //     })
+  //     .catch((error) => {
+  //       setLinks(error.message);
+  //     });
+  // }, []);
 
   return (
     <form>
-      <input id="searchBar" placeholder="search links here.." />
-      <select></select>
+      <input id="searchBar" placeholder="search links here.." value={setQuery}/>
       <span id="searchButton">
         <button>Search</button>
       </span>
