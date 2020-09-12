@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { getLinks } from "../api";
 
-const MainContent = () => {
-  const [links, setLinks] = useState([]);
+const MainContent = ({ links, setLinks }) => {
+  // const [links, setLinks] = useState([]);
 
   useEffect(() => {
     getLinks()
@@ -13,7 +13,7 @@ const MainContent = () => {
       .catch((error) => {
         setLinks(error.message);
       });
-  }, []);
+  }, [setLinks]);
 
   // creating an unordered list as the number of links can grow
   // then wrapping each property from the links table in a span to have it on the same row
@@ -29,6 +29,8 @@ const MainContent = () => {
             <span>{link.comment}</span>
             <span>{link.date}</span>
             <span>{link.name}</span>
+            <span>{link.clickCount}</span>
+            <button>Delete Link</button>
           </div>
         ))}
       </ul>
