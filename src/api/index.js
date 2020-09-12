@@ -22,11 +22,35 @@ export async function getLinks() {
   }
 }
 
-export async function addLink() {
+export async function addLink({ link, clickCount, comment, date, tags }) {
   try {
-    const { data } = await axios.post(`${BASE}/api`);
-    return data;
+    // console.log("look here: ", link, clickCount, comment, date, tags);
+    const { data } = await axios.post(`${BASE}/api`, {
+      link,
+      clickCount,
+      comment,
+      date,
+      tags,
+    });
+    console.log(data);
+    // return data;
   } catch (error) {
     throw error;
   }
 }
+
+// export async function addLink() {
+//   axios
+//     .post(`${BASE}/api`, {
+//       link: "testing testing testing",
+//       clickCount: 5,
+//       comment: "test",
+//       date: "1000-01-01",
+//     })
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }

@@ -1,6 +1,6 @@
-import React from "react";
-// { useState, useCallback }
-// import { addLink } from "../api";
+import React, { useState } from "react";
+
+import { addLink } from "../api";
 
 // header, modal, aside?
 // need a form to capture link, comment, tags ()
@@ -11,34 +11,70 @@ import React from "react";
 // clickCount will be defaulted to zero
 
 const AddLink = () => {
-  // bunch of stuff needed here
-  //   const [newLink, setNewLink] = useState([]);
+  // console.log("rendering addLink here");
 
-  //   useEffect(() => {
-  //     addLink()
-  //       .then((response) => {
-  //         setNewLink(response);
-  //       })
-  //       .catch((error) => {
-  //         setNewLink(error.message);
-  //       });
-  //   }, []);
+  const [newLink, setNewLink] = useState("");
+  const [comment, setComment] = useState("");
+  const [tags, setTags] = useState([]);
 
-  //   console.log(newLink);
+  const handleLink = (event) => {
+    console.log("links: ", event.target.value);
+    setNewLink(event.target.value);
+  };
 
-  // const addNewLink = useCallback(
-  //   (newlink)
+  const handleComment = (event) => {
+    console.log("comments: ", event.target.value);
+    setComment(event.target.value);
+  };
 
-  // )
+  const handleTags = (event) => {
+    console.log("tags: ", event.target.value);
+    setTags(event.target.value);
+  };
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    console.log("button clicked");
+    const clickCount = 0;
+    const date = "2015-03-03";
+
+    const createNewLink = await addLink({
+      link: newLink,
+      clickCount,
+      comment,
+      date,
+      tags: tags,
+    });
+  }
 
   return (
-    <form className="active">
+    <form className="active" onSubmit={handleSubmit}>
       <span>
-        <input id="captureLink" placeholder="add link" />
-        <input id="captureComment" placeholder="add comment" />
-        <input id="captureTags" placeholder="add tags" />
+        <input
+          type="text"
+          id="captureLink"
+          value={newLink}
+          onChange={handleLink}
+          placeholder="add link"
+        />
+        <input
+          type="text"
+          id="captureComment"
+          value={comment}
+          onChange={handleComment}
+          placeholder="add comment"
+        />
+        <input
+          type="text"
+          id="captureTags"
+          value={tags}
+          onChange={handleTags}
+          placeholder="tags: seperate with a space"
+        />
 
-        <button id="createLinkButton">Add New Link</button>
+        <button type="submit" id="createLinkButton" onClick={handleSubmit}>
+          Add New Link
+        </button>
       </span>
     </form>
   );

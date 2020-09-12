@@ -52,7 +52,7 @@ apiRouter.get("/:tagName/links", async (req, res, next) => {
 
 apiRouter.post("/", async (req, res, next) => {
   const { link, clickCount, comment, date, tags = "" } = req.body;
-
+  console.log(req.body);
   const tagArr = tags.trim().split(/\s+/);
   const linkData = {};
 
@@ -65,7 +65,6 @@ apiRouter.post("/", async (req, res, next) => {
     linkData.clickCount = clickCount;
     linkData.comment = comment;
     linkData.date = date;
-    // console.log(linkData, 'link data flag')
 
     const createdLink = await createLink(linkData);
 
