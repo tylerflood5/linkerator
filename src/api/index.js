@@ -22,6 +22,7 @@ export async function getLinks() {
   }
 }
 
+
 export async function addLink({ link, clickCount, comment, date, tags }) {
   try {
     // console.log("look here: ", link, clickCount, comment, date, tags);
@@ -54,3 +55,4 @@ export async function addLink({ link, clickCount, comment, date, tags }) {
 //       console.log(error);
 //     });
 // }
+
