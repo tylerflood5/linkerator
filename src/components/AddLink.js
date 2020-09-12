@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { addLink } from "../api";
+import { getLinks, addLink } from "../api";
 
 // header, modal, aside?
 // need a form to capture link, comment, tags ()
@@ -10,12 +10,13 @@ import { addLink } from "../api";
 // date will be aut generated
 // clickCount will be defaulted to zero
 
-const AddLink = () => {
+const AddLink = ({links, setLinks}) => {
   // console.log("rendering addLink here");
 
   const [newLink, setNewLink] = useState("");
   const [comment, setComment] = useState("");
   const [tags, setTags] = useState([]);
+
 
   const handleLink = (event) => {
     console.log("links: ", event.target.value);
@@ -28,8 +29,13 @@ const AddLink = () => {
   };
 
   const handleTags = (event) => {
-    console.log("tags: ", event.target.value);
-    setTags(event.target.value);
+    if(event.target.value === "") {
+      setTags(["#"])
+    } else {
+      console.log("tags: ", event.target.value);
+      setTags(event.target.value);
+    }
+    
   };
 
   async function handleSubmit(event) {
@@ -45,6 +51,16 @@ const AddLink = () => {
       date,
       tags: tags,
     });
+
+    
+      await getLinks()
+        .then((response) => {
+          setLinks(response);
+        })
+        .catch((error) => {
+          setLinks(error.message);
+        });
+   
   }
 
   return (

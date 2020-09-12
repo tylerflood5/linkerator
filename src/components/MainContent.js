@@ -21,7 +21,8 @@ const MainContent = ({ links, setLinks }) => {
       .catch((error) => {
         setLinks(error.message);
       });
-  }, [setLinks]);
+  }, []);
+
 
   
 
