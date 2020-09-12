@@ -29,10 +29,6 @@ const App = () => {
       <div>
         <SearchBar />
       </div>
-      <div>
-        <MainContent  />
-      </div>
-
       <MainContent links={links} setLinks={setLinks} />
       <AddLink links={links} setLinks={setLinks} />
     </div>
