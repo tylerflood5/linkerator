@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import { getSomething, getLinks } from "../api";
+import { getSomething } from "../api";
 
 import { SearchBar, MainContent, AddLink } from "../components";
 
-// testing 1, 2, 3
+// import "bootstrap/dist/css/bootstrap.min.css";
+// need to run the below command if we want to use
+// npm install react-bootstrap bootstrap
 
 const App = () => {
   const [message, setMessage] = useState("");
+  const [links, setLinks] = useState([]);
 
   useEffect(() => {
     getSomething()
@@ -29,6 +32,9 @@ const App = () => {
       <div>
         <MainContent  />
       </div>
+
+      <MainContent links={links} setLinks={setLinks} />
+      <AddLink links={links} setLinks={setLinks} />
     </div>
   );
 };

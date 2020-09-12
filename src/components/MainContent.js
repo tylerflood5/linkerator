@@ -7,6 +7,8 @@ import {
 const MainContent = () => {
   const [links, setLinks] = useState([]);
   // const [clickCount, setClickCount] = useState(0);
+const MainContent = ({ links, setLinks }) => {
+  // const [links, setLinks] = useState([]);
 
   useEffect(() => {
     getLinks()
@@ -16,7 +18,7 @@ const MainContent = () => {
       .catch((error) => {
         setLinks(error.message);
       });
-  }, []);
+  }, [setLinks]);
 
   
 
@@ -35,6 +37,7 @@ const MainContent = () => {
             <span>{link.date}</span>
             <span>{link.name}</span>
             <span>{link.clickCount}</span>
+            <button>Delete Link</button>
           </div>
         ))}
       </ul>
