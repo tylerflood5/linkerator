@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import "./AddLink.css";
+
 import { getLinks, addLink } from "../api";
 
 // header, modal, aside?
@@ -10,13 +12,12 @@ import { getLinks, addLink } from "../api";
 // date will be aut generated
 // clickCount will be defaulted to zero
 
-const AddLink = ({links, setLinks}) => {
+const AddLink = ({ links, setLinks }) => {
   // console.log("rendering addLink here");
 
   const [newLink, setNewLink] = useState("");
   const [comment, setComment] = useState("");
   const [tags, setTags] = useState([]);
-
 
   const handleLink = (event) => {
     console.log("links: ", event.target.value);
@@ -29,13 +30,12 @@ const AddLink = ({links, setLinks}) => {
   };
 
   const handleTags = (event) => {
-    if(event.target.value === "") {
-      setTags(["#"])
+    if (event.target.value === "") {
+      setTags(["#"]);
     } else {
       console.log("tags: ", event.target.value);
       setTags(event.target.value);
     }
-    
   };
 
   async function handleSubmit(event) {
@@ -52,21 +52,20 @@ const AddLink = ({links, setLinks}) => {
       tags: tags,
     });
 
-    
-      await getLinks()
-        .then((response) => {
-          setLinks(response);
-        })
-        .catch((error) => {
-          setLinks(error.message);
-        });
-   
+    await getLinks()
+      .then((response) => {
+        setLinks(response);
+      })
+      .catch((error) => {
+        setLinks(error.message);
+      });
   }
 
   return (
     <form className="active" onSubmit={handleSubmit}>
-      <span>
+      <span id="addLinkForms">
         <input
+          className="addInput"
           type="text"
           id="captureLink"
           value={newLink}
@@ -74,6 +73,7 @@ const AddLink = ({links, setLinks}) => {
           placeholder="add link"
         />
         <input
+          className="addInput"
           type="text"
           id="captureComment"
           value={comment}
@@ -81,6 +81,7 @@ const AddLink = ({links, setLinks}) => {
           placeholder="add comment"
         />
         <input
+          className="addInput"
           type="text"
           id="captureTags"
           value={tags}

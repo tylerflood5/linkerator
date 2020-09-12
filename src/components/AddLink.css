@@ -1,0 +1,17 @@
+#addLinkForms {
+  display: flex;
+  justify-content: center;
+}
+
+.addInput {
+  width: 250px;
+  margin: 5px;
+  padding: 6px;
+}
+
+#createLinkButton {
+  padding: 6px;
+  background-color: rgb(116, 36, 36);
+  color: white;
+  height: 36px;
+}

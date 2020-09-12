@@ -1,0 +1,15 @@
+#linkResults {
+  text-align: left;
+  margin: 1rem 0.25rem;
+  font-size: 16px;
+}
+
+#linkDiv {
+  padding: 6px;
+  border: 1px solid black;
+  margin: 0.5rem;
+}
+
+button {
+  text-align: end;
+}
