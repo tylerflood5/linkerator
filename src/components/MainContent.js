@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { getLinks } from "../api";
 
+console.log("testing testing testing");
+
 const MainContent = ({ links, setLinks }) => {
   // const [links, setLinks] = useState([]);
 
