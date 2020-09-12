@@ -27,7 +27,7 @@ const App = () => {
         <SearchBar />
       </div>
       <div>
-        <MainContent />
+        <MainContent  />
       </div>
     </div>
   );
