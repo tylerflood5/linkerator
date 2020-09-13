@@ -4,7 +4,7 @@ import { searchLinks } from "../api";
 
 import "./SearchBar.css";
 
-const SearchBar = ({query, setQuery}) => {
+const SearchBar = ({query, setQuery, queryLinks, setQueryLinks}) => {
 
   async function handleQuery(event) {
     setQuery(event.target.value)
@@ -14,7 +14,9 @@ const SearchBar = ({query, setQuery}) => {
     event.preventDefault();
     console.log(event.target.value);
 
-    await searchLinks(query);
+    setQueryLinks(await searchLinks(query));
+    console.log(queryLinks)
+   
   }
 
   return (

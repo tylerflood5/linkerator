@@ -14,6 +14,7 @@ const App = () => {
   const [message, setMessage] = useState("");
   const [links, setLinks] = useState([]);
   const [query, setQuery] = useState("");
+  const [queryLinks, setQueryLinks] = useState([]);
 
 
   useEffect(() => {
@@ -31,14 +32,18 @@ const App = () => {
       <h1>LINKERATOR!</h1>
       <h2>{message}</h2>
       <div>
-        <SearchBar query={query} setQuery={setQuery}/>
+        <SearchBar 
+        query={query} 
+        setQuery={setQuery}
+        queryLinks={queryLinks}
+        setQueryLinks={setQueryLinks}/>
       </div>
       <AddLink links={links} setLinks={setLinks} />
       <MainContent 
         links={links} 
         setLinks={setLinks} 
-        query={query} 
-        setQuery={setQuery} />
+        queryLinks={queryLinks} 
+        setQueryLinks={setQueryLinks} />
     </div>
   );
 };
