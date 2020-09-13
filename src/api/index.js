@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "https://dry-atoll-40838.herokuapp.com/";
+const BASE = "https://linkerator-dashboard.herokuapp.com/";
 
 export async function getSomething() {
   try {
