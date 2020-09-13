@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MainContent.css";
 
-import { getLinks, deleteLink } from "../api";
+import { getLinks, deleteLink, searchLinks } from "../api";
 
 const MainContent = ({ links, setLinks }) => {
   // const [links, setLinks] = useState([]);
@@ -15,6 +15,8 @@ const MainContent = ({ links, setLinks }) => {
         setLinks(error.message);
       });
   }, []);
+
+  
 
   async function deleteEvent(event) {
     event.preventDefault();
@@ -33,6 +35,7 @@ const MainContent = ({ links, setLinks }) => {
 
   return (
     <div id="linkResults">
+      
       <ul id="list">
         {links.map((link, index) => (
           <div key={link.id} id="linkDiv">
@@ -54,6 +57,7 @@ const MainContent = ({ links, setLinks }) => {
           </div>
         ))}
       </ul>
+        
     </div>
   );
 };

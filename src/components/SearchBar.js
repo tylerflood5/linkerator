@@ -4,8 +4,7 @@ import { searchLinks } from "../api";
 
 import "./SearchBar.css";
 
-const SearchBar = () => {
-  const [query, setQuery] = useState("");
+const SearchBar = ({query, setQuery}) => {
 
   async function handleQuery(event) {
     setQuery(event.target.value)

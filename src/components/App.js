@@ -13,6 +13,8 @@ import "./App.css";
 const App = () => {
   const [message, setMessage] = useState("");
   const [links, setLinks] = useState([]);
+  const [query, setQuery] = useState("");
+
 
   useEffect(() => {
     getSomething()
@@ -29,10 +31,14 @@ const App = () => {
       <h1>LINKERATOR!</h1>
       <h2>{message}</h2>
       <div>
-        <SearchBar />
+        <SearchBar query={query} setQuery={setQuery}/>
       </div>
       <AddLink links={links} setLinks={setLinks} />
-      <MainContent links={links} setLinks={setLinks} />
+      <MainContent 
+        links={links} 
+        setLinks={setLinks} 
+        query={query} 
+        setQuery={setQuery} />
     </div>
   );
 };
