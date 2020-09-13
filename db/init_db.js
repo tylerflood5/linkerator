@@ -79,27 +79,35 @@ async function populateInitialData() {
     console.log("Creating initial links...");
 
     await createLink({
-      link: "https://www.google.com/",
+      link: "https://api.jquery.com/",
       clickCount: 5,
-      comment: "this is google.com",
-      date: "1000-01-01",
-      tags: ["googlemaps", "googledrive", "googlefinance"],
+      comment: "JQuery documentation",
+      date: "2020-09-15",
+      tags: ["$", "JQUERY", "this"],
     });
 
     await createLink({
       link: "https://developer.mozilla.org/en-US/",
       clickCount: 10,
       comment: "This is MDN",
-      date: "1002-02-02",
+      date: "2020-07-29",
       tags: ["developer", "MDN", "Mozilla"],
     });
 
     await createLink({
       link: "https://stackoverflow.com/",
       clickCount: 4,
-      comment: "This is stackoverflow",
-      date: "1003-03-03",
+      comment: "the one stop shop for programmers",
+      date: "2020-08-01",
       tags: ["stackoverflow", "fullstack"],
+    });
+
+    await createLink({
+      link: "https://reactjs.org/",
+      clickCount: 1,
+      comment: "only show me the differences",
+      date: "2020-06-15",
+      tags: ["REACT", "framework"],
     });
 
     console.log("Finished creating initial links...");

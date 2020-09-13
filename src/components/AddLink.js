@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./AddLink.css";
 
@@ -42,13 +42,18 @@ const AddLink = ({ links, setLinks }) => {
     event.preventDefault();
     console.log("button clicked");
     const clickCount = 0;
-    const date = "2015-03-03";
+
+    const date = new Date().getDate(); //To get the Current Date
+    const month = new Date().getMonth() + 1; //To get the Current Month
+    const year = new Date().getFullYear(); //To get the Current Year
+    const dateStamp = date + "-" + month + "-" + year;
+    console.log(dateStamp);
 
     const createNewLink = await addLink({
       link: newLink,
       clickCount,
       comment,
-      date,
+      date: dateStamp,
       tags: tags,
     });
 
