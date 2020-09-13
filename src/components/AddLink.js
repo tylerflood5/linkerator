@@ -62,7 +62,9 @@ const AddLink = ({ links, setLinks }) => {
         setLinks(error.message);
       });
 
-    // need to clear out the forms here
+    await setNewLink("");
+    await setComment("");
+    await setTags("");
   }
 
   return (
