@@ -1,15 +1,25 @@
 #linkResults {
-  text-align: left;
-  margin: 1rem 0.25rem;
+  margin: 1rem 0.75rem;
   font-size: 16px;
+}
+
+#list {
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 #linkDiv {
   padding: 6px;
   border: 1px solid black;
   margin: 0.5rem;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
 
-button {
-  text-align: end;
+#specs {
+  display: flex;
+  justify-content: space-evenly;
 }

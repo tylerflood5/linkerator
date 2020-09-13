@@ -22,19 +22,20 @@ const MainContent = ({ links, setLinks }) => {
 
   return (
     <div id="linkResults">
-      <ul>
+      <ul id="list">
         {links.map((link, index) => (
           <div key={link.id} id="linkDiv">
-            <a href={link.link} target="_blank" className="url">
-              {link.link}
-            </a>
-            <span>{link.comment}</span>
-            <span>{link.name}</span>
             <div>
-              <span>{link.id}</span>
-              <span>{link.clickCount}</span>
-              <span>{link.date}</span>
-
+              <a href={link.link} target="_blank" className="url">
+                {link.link}
+              </a>
+            </div>
+            <div>{link.comment}</div>
+            <div>{link.name}</div>
+            <div>{link.date}</div>
+            <div id="specs">
+              <span>ID: {link.id}</span>
+              <span>Count: {link.clickCount}</span>
               <button>Delete Link</button>
             </div>
           </div>
