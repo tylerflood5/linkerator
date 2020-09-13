@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "http://localhost:3000";
+const BASE = "https://dry-atoll-40838.herokuapp.com";
 
 export async function getSomething() {
   try {
