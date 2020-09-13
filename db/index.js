@@ -96,17 +96,20 @@ async function getLinkByClickCount(clickCount) {
   }
 }
 
-async function getLinksByQuery(query) {  
-
+async function getLinksByQuery(query) {
   try {
+    console.log("query: ", query);
+    if (query === "") {
+      return await getAllLinksAndTags();
+    }
+
     const { rows } = await client.query(`
      SELECT * FROM links 
      WHERE 
      link LIKE '%${query}%';
-    `)
+    `);
 
     return rows;
-    
   } catch (error) {
     throw error;
   }
@@ -164,27 +167,6 @@ async function updateLink(linkId, fields = {}) {
       console.log("unable to setString");
       return;
     }
-
-    // if (tags === undefined) {
-    //   return await getLinkById(linkId);
-    // }
-
-    // const tagList = await createTags(tags);
-    // const tagListIdString = tagList.map(
-    //   tag => `${ tag.id }`
-    // ).join(', ');
-
-    // await client.query(`
-    //   DELETE FROM link_tags
-    //   WHERE "tagId"
-    //   NOT IN (${ tagListIdString })
-    //   AND "linkId"=$1;
-    // `, [linkId]);
-
-    // await addTagsToLink(linkId, tagList);
-
-    // const test = await getLinkById(linkId);
-    // console.log(test, 'flag test flag')
   } catch (error) {
     throw error;
   }
@@ -292,7 +274,6 @@ async function getLinksByTagName(tagName) {
   }
 }
 
-
 ///// Todo Items /////
 // do we need anything querying link_tags table?
 
@@ -309,5 +290,5 @@ module.exports = {
   getLinksByTagName,
   destroyLink,
   getAllLinksAndTags,
-  getLinksByQuery
+  getLinksByQuery,
 };

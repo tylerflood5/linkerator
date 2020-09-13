@@ -20,23 +20,23 @@ const AddLink = ({ links, setLinks }) => {
   const [tags, setTags] = useState("");
 
   const handleLink = (event) => {
-    console.log("links: ", event.target.value);
+    // console.log("links: ", event.target.value);
     setNewLink(event.target.value);
   };
 
   const handleComment = (event) => {
-    console.log("comments: ", event.target.value);
+    // console.log("comments: ", event.target.value);
     setComment(event.target.value);
   };
 
   const handleTags = (event) => {
-    console.log("tags: ", event.target.value);
+    // console.log("tags: ", event.target.value);
     setTags(event.target.value);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(" addLink button clicked");
+    // console.log(" addLink button clicked");
 
     const clickCount = 0;
 
@@ -44,7 +44,7 @@ const AddLink = ({ links, setLinks }) => {
     const month = new Date().getMonth() + 1; //To get the Current Month
     const year = new Date().getFullYear(); //To get the Current Year
     const dateStamp = year + "-" + month + "-" + date;
-    console.log(newLink, clickCount, comment, dateStamp, tags);
+    // console.log(newLink, clickCount, comment, dateStamp, tags);
 
     const createNewLink = await addLink({
       link: newLink,

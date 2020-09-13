@@ -15,7 +15,7 @@ export async function getSomething() {
 export async function getLinks() {
   try {
     const { data } = await axios.get(`${BASE}/api/links`);
-    console.log("Matthew look here", data);
+    // console.log("Matthew look here", data);
     return data;
   } catch (error) {
     throw error;
@@ -49,9 +49,8 @@ export async function deleteLink(linkId) {
 export async function searchLinks(query) {
   try {
     const { data } = await axios.get(`${BASE}/api/links/${query}`);
-    console.log(data,'axios data flag')
+    // console.log(data,'axios data flag')
     return data;
-    
   } catch (error) {
     throw error;
   }
