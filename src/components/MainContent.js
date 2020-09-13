@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MainContent.css";
 
-import { getLinks } from "../api";
+import { getLinks, deleteLink } from "../api";
 
 const MainContent = ({ links, setLinks }) => {
   // const [links, setLinks] = useState([]);
@@ -16,9 +16,20 @@ const MainContent = ({ links, setLinks }) => {
       });
   }, []);
 
-  // creating an unordered list as the number of links can grow
-  // then wrapping each property from the links table in a span to have it on the same row
-  // added the key as link.id to get rid of that annoying error
+  async function deleteEvent(event) {
+    event.preventDefault();
+    console.log("delete button clicked");
+
+    await deleteLink(event.target.value);
+
+    await getLinks()
+      .then((response) => {
+        setLinks(response);
+      })
+      .catch((error) => {
+        setLinks(error.message);
+      });
+  }
 
   return (
     <div id="linkResults">
@@ -36,7 +47,9 @@ const MainContent = ({ links, setLinks }) => {
             <div id="specs">
               <span>ID: {link.id}</span>
               <span>Count: {link.clickCount}</span>
-              <button>Delete Link</button>
+              <button value={link.id} onClick={deleteEvent}>
+                Delete Link
+              </button>
             </div>
           </div>
         ))}

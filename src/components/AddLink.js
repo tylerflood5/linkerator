@@ -64,6 +64,8 @@ const AddLink = ({ links, setLinks }) => {
       .catch((error) => {
         setLinks(error.message);
       });
+
+    // need to clear out the forms here
   }
 
   return (

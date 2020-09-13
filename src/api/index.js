@@ -22,10 +22,8 @@ export async function getLinks() {
   }
 }
 
-
 export async function addLink({ link, clickCount, comment, date, tags }) {
   try {
-    // console.log("look here: ", link, clickCount, comment, date, tags);
     const { data } = await axios.post(`${BASE}/api`, {
       link,
       clickCount,
@@ -34,25 +32,15 @@ export async function addLink({ link, clickCount, comment, date, tags }) {
       tags,
     });
     console.log(data);
-    // return data;
   } catch (error) {
     throw error;
   }
 }
 
-// export async function addLink() {
-//   axios
-//     .post(`${BASE}/api`, {
-//       link: "testing testing testing",
-//       clickCount: 5,
-//       comment: "test",
-//       date: "1000-01-01",
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-
+export async function deleteLink(linkId) {
+  try {
+    const { data } = await axios.delete(`${BASE}/api/${linkId}`);
+  } catch (error) {
+    throw error;
+  }
+}
