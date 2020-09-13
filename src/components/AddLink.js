@@ -43,8 +43,8 @@ const AddLink = ({ links, setLinks }) => {
     const date = new Date().getDate(); //To get the Current Date
     const month = new Date().getMonth() + 1; //To get the Current Month
     const year = new Date().getFullYear(); //To get the Current Year
-    const dateStamp = date + "-" + month + "-" + year;
-    console.log(dateStamp);
+    const dateStamp = year + "-" + month + "-" + date;
+    console.log(newLink, clickCount, comment, dateStamp, tags);
 
     const createNewLink = await addLink({
       link: newLink,
