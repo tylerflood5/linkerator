@@ -3,7 +3,7 @@ import "./MainContent.css";
 
 import { getLinks, deleteLink, searchLinks } from "../api";
 
-const MainContent = ({ links, setLinks }) => {
+const MainContent = ({ links, setLinks, query,  queryLinks, setQueryLinks }) => {
   // const [links, setLinks] = useState([]);
 
   useEffect(() => {
@@ -14,9 +14,17 @@ const MainContent = ({ links, setLinks }) => {
       .catch((error) => {
         setLinks(error.message);
       });
-  }, []);
+  }, [query]);
 
-  
+  // useEffect(() => {
+  //   searchLinks(query)
+  //     .then((response) => {
+  //       setQueryLinks(response);
+  //     })
+  //     .catch((error) => {
+  //       setQueryLinks(error.message);
+  //     });
+  // }, []);
 
   async function deleteEvent(event) {
     event.preventDefault();
@@ -35,7 +43,8 @@ const MainContent = ({ links, setLinks }) => {
 
   return (
     <div id="linkResults">
-      
+      { queryLinks === []
+      ? 
       <ul id="list">
         {links.map((link, index) => (
           <div key={link.id} id="linkDiv">
@@ -57,7 +66,29 @@ const MainContent = ({ links, setLinks }) => {
           </div>
         ))}
       </ul>
-        
+      :
+      <ul id="list">
+        {queryLinks.map((link, index) => (
+          <div key={link.id} id="linkDiv">
+            <div>
+              <a href={link.link} target="_blank" className="url">
+                {link.link}
+              </a>
+            </div>
+            <div>{link.comment}</div>
+            <div>{link.name}</div>
+            <div>{link.date}</div>
+            <div id="specs">
+              <span>ID: {link.id}</span>
+              <span>Count: {link.clickCount}</span>
+              <button value={link.id} onClick={deleteEvent}>
+                Delete Link
+              </button>
+            </div>
+          </div>
+        ))}
+      </ul>
+    }     
     </div>
   );
 };
