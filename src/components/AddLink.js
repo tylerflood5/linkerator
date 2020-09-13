@@ -4,14 +4,6 @@ import "./AddLink.css";
 
 import { getLinks, addLink } from "../api";
 
-// header, modal, aside?
-// need a form to capture link, comment, tags ()
-// check to see if createLink is set up to run properly
-// if only fed these three paramters
-
-// date will be aut generated
-// clickCount will be defaulted to zero
-
 const AddLink = ({ links, setLinks }) => {
   // console.log("rendering addLink here");
 
