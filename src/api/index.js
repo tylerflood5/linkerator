@@ -24,6 +24,7 @@ export async function getLinks() {
 
 export async function addLink({ link, clickCount, comment, date, tags }) {
   try {
+    console.log(link, clickCount, comment, date, tags);
     const { data } = await axios.post(`${BASE}/api`, {
       link,
       clickCount,

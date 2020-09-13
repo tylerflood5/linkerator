@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Linkerator!!</h1>
+      <h1>LINKERATOR!</h1>
       <h2>{message}</h2>
       <div>
         <SearchBar query={query} setQuery={setQuery} />

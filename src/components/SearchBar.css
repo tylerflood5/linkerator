@@ -1,0 +1,13 @@
+#searchBar {
+  width: 500px;
+  margin: 5px;
+  padding: 6px;
+}
+
+#searchButton {
+  padding: 4px;
+  margin: 3px;
+  background-color: rgb(116, 36, 36);
+  color: white;
+  height: 30px;
+}
