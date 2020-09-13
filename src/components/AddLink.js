@@ -17,7 +17,7 @@ const AddLink = ({ links, setLinks }) => {
 
   const [newLink, setNewLink] = useState("");
   const [comment, setComment] = useState("");
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState("");
 
   const handleLink = (event) => {
     console.log("links: ", event.target.value);
@@ -30,17 +30,14 @@ const AddLink = ({ links, setLinks }) => {
   };
 
   const handleTags = (event) => {
-    if (event.target.value === "") {
-      setTags(["#"]);
-    } else {
-      console.log("tags: ", event.target.value);
-      setTags(event.target.value);
-    }
+    console.log("tags: ", event.target.value);
+    setTags(event.target.value);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("button clicked");
+    console.log(" addLink button clicked");
+
     const clickCount = 0;
 
     const date = new Date().getDate(); //To get the Current Date
