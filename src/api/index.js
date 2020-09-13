@@ -45,3 +45,14 @@ export async function deleteLink(linkId) {
     throw error;
   }
 }
+
+export async function searchLinks(query) {
+  try {
+    const { data } = await axios.get(`${BASE}/api/links/${query}`);
+    console.log(data,'axios data flag')
+    return data;
+    
+  } catch (error) {
+    throw error;
+  }
+}
