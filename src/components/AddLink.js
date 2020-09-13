@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./AddLink.css";
 
@@ -17,7 +17,7 @@ const AddLink = ({ links, setLinks }) => {
 
   const [newLink, setNewLink] = useState("");
   const [comment, setComment] = useState("");
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState("");
 
   const handleLink = (event) => {
     console.log("links: ", event.target.value);
@@ -30,25 +30,27 @@ const AddLink = ({ links, setLinks }) => {
   };
 
   const handleTags = (event) => {
-    if (event.target.value === "") {
-      setTags(["#"]);
-    } else {
-      console.log("tags: ", event.target.value);
-      setTags(event.target.value);
-    }
+    console.log("tags: ", event.target.value);
+    setTags(event.target.value);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("button clicked");
+    console.log(" addLink button clicked");
+
     const clickCount = 0;
-    const date = "2015-03-03";
+
+    const date = new Date().getDate(); //To get the Current Date
+    const month = new Date().getMonth() + 1; //To get the Current Month
+    const year = new Date().getFullYear(); //To get the Current Year
+    const dateStamp = date + "-" + month + "-" + year;
+    console.log(dateStamp);
 
     const createNewLink = await addLink({
       link: newLink,
       clickCount,
       comment,
-      date,
+      date: dateStamp,
       tags: tags,
     });
 
@@ -59,6 +61,8 @@ const AddLink = ({ links, setLinks }) => {
       .catch((error) => {
         setLinks(error.message);
       });
+
+    // need to clear out the forms here
   }
 
   return (
