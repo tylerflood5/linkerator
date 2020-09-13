@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import { getLinks } from "../api";
 
 import "./SearchBar.css";
 
-const SearchBar = () => {
+const SearchBar = ({links, setLinks}) => {
+  const [query, setQuery] = useState("");
+
+  async function handleQuery(event) {
+    setQuery(event.target.value)
+  }
+
+
  
 
 
@@ -13,6 +20,8 @@ const SearchBar = () => {
       <input
         id="searchBar"
         placeholder="search links here.."
+        value={query}
+        onChange={handleQuery}
         
       />
       <span>
