@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { getLinks } from "../api";
+// import { getLinks } from "../api";
 
+import "./SearchBar.css";
 
-const SearchBar = ({query, setQuery}) => {
+const SearchBar = ({ query, setQuery }) => {
   // bunch of stuff here
   // const [links, setLinks] = useState([]);
-  console.log(query)
+  console.log(query);
 
   // useEffect(() => {
   //   getLinks()
@@ -20,9 +21,13 @@ const SearchBar = ({query, setQuery}) => {
 
   return (
     <form>
-      <input id="searchBar" placeholder="search links here.." value={setQuery}/>
-      <span id="searchButton">
-        <button>Search</button>
+      <input
+        id="searchBar"
+        placeholder="search links here.."
+        value={setQuery}
+      />
+      <span>
+        <button id="searchButton">Search</button>
       </span>
     </form>
   );
