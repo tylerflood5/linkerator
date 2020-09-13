@@ -1,35 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 
-// import { getLinks } from "../api";
+import { searchLinks } from "../api";
 
 import "./SearchBar.css";
 
-const SearchBar = ({ query, setQuery }) => {
-  // bunch of stuff here
-  // const [links, setLinks] = useState([]);
-  console.log(query);
+const SearchBar = ({query, setQuery}) => {
 
-  // useEffect(() => {
-  //   getLinks()
-  //     .then((response) => {
-  //       setLinks(response);
-  //     })
-  //     .catch((error) => {
-  //       setLinks(error.message);
-  //     });
-  // }, []);
+  async function handleQuery(event) {
+    setQuery(event.target.value)
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    console.log(event.target.value);
+
+    await searchLinks(query);
+  }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         id="searchBar"
         placeholder="search links here.."
-        value={setQuery}
+        value={query}
+        onChange={handleQuery}
+        
       />
       <span>
         <button id="searchButton">Search</button>
       </span>
     </form>
+    
   );
 };
 

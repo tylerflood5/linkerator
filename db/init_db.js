@@ -10,6 +10,7 @@ const {
   createTag,
   getAllTags,
   getLinksByTagName,
+  getLinksByQuery
 } = require("./index");
 
 async function createTables() {
@@ -154,6 +155,10 @@ async function testDB() {
     //   clickCount: "20",
     // });
     // console.log("Result:", updatedLink);
+
+    console.log("Running get link by query...");
+    const queryLinks = await getLinksByQuery("react")
+    console.log("Result:", queryLinks)
 
     console.log("Finished testing DB...");
   } catch (error) {

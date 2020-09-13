@@ -96,6 +96,22 @@ async function getLinkByClickCount(clickCount) {
   }
 }
 
+async function getLinksByQuery(query) {  
+
+  try {
+    const { rows } = await client.query(`
+     SELECT * FROM links 
+     WHERE 
+     link LIKE '%${query}%';
+    `)
+
+    return rows;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function destroyLink(id) {
   try {
     await client.query(
@@ -293,4 +309,5 @@ module.exports = {
   getLinksByTagName,
   destroyLink,
   getAllLinksAndTags,
+  getLinksByQuery
 };

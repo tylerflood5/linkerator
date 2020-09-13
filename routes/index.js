@@ -12,6 +12,7 @@ const {
   getLinksByTagName,
   destroyLink,
   updateLink,
+  getLinksByQuery
 } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
@@ -28,6 +29,18 @@ apiRouter.get("/links", async (req, res, next) => {
     next({ name, message });
   }
 });
+
+apiRouter.get("/links/:query", async (req, res, next) => {
+  try {
+    const { query } = req.params;
+    const queryLinks = await getLinksByQuery(query);
+    res.send(queryLinks);
+    
+  } catch ({name, message}) {
+    next({ name, message })
+  }
+})
+
 
 apiRouter.get("/tags", async (req, res, next) => {
   try {
@@ -119,5 +132,6 @@ apiRouter.patch("/:linkId", async (req, res, next) => {
     });
   }
 });
+
 
 module.exports = apiRouter;
