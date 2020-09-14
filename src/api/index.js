@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = "https://linkerator-dashboard.herokuapp.com/";
+const BASE = "http://localhost:3000";
 
 export async function getSomething() {
   try {
